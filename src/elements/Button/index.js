@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Button = (props) => {
   const {
     type,
-    onclick,
+    onClick,
     target,
     className,
     isDisabled,
@@ -23,14 +23,14 @@ const Button = (props) => {
 
   const classNames = [className];
 
-  if (isPrimary) className.push('btn-primary');
-  if (isLarge) className.push('btn-lg');
-  if (isSmall) className.push('btn-sm');
-  if (isBlock) className.push('btn-block');
-  if (hasShadow) className.push('btn-shadow');
+  if (isPrimary) classNames.push('btn-primary');
+  if (isLarge) classNames.push('btn-lg');
+  if (isSmall) classNames.push('btn-sm');
+  if (isBlock) classNames.push('btn-block');
+  if (hasShadow) classNames.push('btn-shadow');
 
   const onclickHandler = () => {
-    if (onclick) onclick();
+    if (onClick) onClick();
   };
 
   if (isDisabled || isLoading) {
@@ -90,7 +90,7 @@ const Button = (props) => {
 
 Button.protoTypes = {
   type: PropTypes.oneOf(['button', 'link']),
-  onclick: PropTypes.func,
+  onClick: PropTypes.func,
   href: PropTypes.string,
   target: PropTypes.string,
   className: PropTypes.string,
