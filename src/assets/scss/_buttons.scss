@@ -18,14 +18,14 @@
   user-select: none;
   background-color: transparent;
   border: $btn-border-width solid transparent;
-  min-height: 50px;
+  min-height: 50px; //custom
   @include button-size(
     $btn-padding-y,
     $btn-padding-x,
     $btn-font-size,
     $btn-line-height,
     4px
-  );
+  ); //custom
   @include transition($btn-transition);
 
   @include hover() {
