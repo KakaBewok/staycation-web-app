@@ -89,32 +89,27 @@ header {
     }
   }
 }
+
 //custom
 section {
   margin-bottom: 70px;
 }
-
 .img-cover {
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
-
 .img-contain {
   object-fit: contain;
   height: 100%;
   width: 100%;
 }
-
 .card {
   border-radius: 15px;
-  height: 100%; //rerakhir custom
-
+  height: 100%; 
   &.bordered {
     border: 1px solid $gray-200;
   }
- 
-
   .tag {
     z-index: 3;
     font-size: 0.875rem;
@@ -131,14 +126,12 @@ section {
       font-weight: 300;
     }
   }
-
   .img-wrapper {
     height: 100%;
     margin-bottom: 0;
     border-radius: 0.9375rem;
     overflow: hidden;
   }
-
   .meta-wrapper {
     margin-top: 1rem;
     h5 {
@@ -149,7 +142,6 @@ section {
       font-size: 0.875rem;
     }
   }
-
   &.card-featured {
     overflow: hidden;
     cursor: pointer;
@@ -208,6 +200,7 @@ section {
   }
 }
 
+//custom
 .testimonial-hero,
 .testimonial-hero img {
   width: 365px;

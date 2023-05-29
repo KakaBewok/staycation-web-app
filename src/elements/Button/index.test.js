@@ -1,39 +1,39 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable testing-library/no-container */
 /* eslint-disable testing-library/no-node-access */
-import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom'; // import toBeInTheDocument
-import { BrowserRouter as Router } from 'react-router-dom';
-import Button from './index';
+import React from "react";
+import { render } from "@testing-library/react";
+import "@testing-library/jest-dom"; // import toBeInTheDocument
+import { BrowserRouter as Router } from "react-router-dom";
+import Button from "./index";
 
-describe('Button component', () => {
-  test('Should not allowed click button if isDisabled is present', () => {
+describe("Button component", () => {
+  test("Should not allowed click button if isDisabled is present", () => {
     const { container } = render(<Button isDisabled></Button>);
 
-    expect(container.querySelector('span.disabled')).toBeInTheDocument();
+    expect(container.querySelector("span.disabled")).toBeInTheDocument();
   });
 
-  test('Should render loading/spinner', () => {
+  test("Should render loading/spinner", () => {
     const { container, getByText } = render(<Button isLoading></Button>);
 
     expect(getByText(/loading/i)).toBeInTheDocument();
-    expect(container.querySelector('span')).toBeInTheDocument();
+    expect(container.querySelector("span")).toBeInTheDocument();
   });
 
-  test('Should render <a> tag', () => {
-    const { container } = render(<Button type="link" isExternal></Button>);
+  test("Should render <a> tag", () => {
+    const { container } = render(<Button type='link' isExternal></Button>);
 
-    expect(container.querySelector('a')).toBeInTheDocument();
+    expect(container.querySelector("a")).toBeInTheDocument();
   });
 
-  test('Should render <Link> component', () => {
+  test("Should render <Link> component", () => {
     const { container } = render(
       <Router>
-        <Button href="" type="link"></Button>
+        <Button href='' type='link'></Button>
       </Router>
     );
 
-    expect(container.querySelector('a')).toBeInTheDocument();
+    expect(container.querySelector("a")).toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Button = (props) => {
   const {
@@ -23,25 +23,25 @@ const Button = (props) => {
 
   const classNames = [className];
 
-  if (isPrimary) classNames.push('btn-primary');
-  if (isLarge) classNames.push('btn-lg');
-  if (isSmall) classNames.push('btn-sm');
-  if (isBlock) classNames.push('btn-block');
-  if (hasShadow) classNames.push('btn-shadow');
+  if (isPrimary) classNames.push("btn-primary");
+  if (isLarge) classNames.push("btn-lg");
+  if (isSmall) classNames.push("btn-sm");
+  if (isBlock) classNames.push("btn-block");
+  if (hasShadow) classNames.push("btn-shadow");
 
   const onclickHandler = () => {
     if (onClick) onClick();
   };
 
   if (isDisabled || isLoading) {
-    if (isDisabled) classNames.push('disabled');
+    if (isDisabled) classNames.push("disabled");
 
     return (
-      <span className={classNames.join(' ')} style={style}>
+      <span className={classNames.join(" ")} style={style}>
         {isLoading ? (
           <>
-            <span className="spinner-border spinner-border-sm mx-5"></span>
-            <span className="sr-only">Loading...</span>
+            <span className='spinner-border spinner-border-sm mx-5'></span>
+            <span className='sr-only'>Loading...</span>
           </>
         ) : (
           children
@@ -50,16 +50,15 @@ const Button = (props) => {
     );
   }
 
-  if (type === 'link') {
+  if (type === "link") {
     if (isExternal) {
       return (
         <a
           href={href}
-          className={classNames.join(' ')}
+          className={classNames.join(" ")}
           style={style}
-          target={target === '_blank' ? '_blank' : undefined}
-          rel={target === '_blank' ? 'noreferrer noopener' : undefined}
-        >
+          target={target === "_blank" ? "_blank" : undefined}
+          rel={target === "_blank" ? "noreferrer noopener" : undefined}>
           {children}
         </a>
       );
@@ -67,10 +66,9 @@ const Button = (props) => {
       return (
         <Link
           to={href}
-          className={classNames.join(' ')}
+          className={classNames.join(" ")}
           style={style}
-          onClick={onclickHandler}
-        >
+          onClick={onclickHandler}>
           {children}
         </Link>
       );
@@ -79,17 +77,16 @@ const Button = (props) => {
 
   return (
     <button
-      className={classNames.join(' ')}
+      className={classNames.join(" ")}
       style={style}
-      onClick={onclickHandler}
-    >
+      onClick={onclickHandler}>
       {children}
     </button>
   );
 };
 
 Button.protoTypes = {
-  type: PropTypes.oneOf(['button', 'link']),
+  type: PropTypes.oneOf(["button", "link"]),
   onClick: PropTypes.func,
   href: PropTypes.string,
   target: PropTypes.string,
