@@ -9,7 +9,7 @@ const Header = (props) => {
   };
 
   return (
-    <Fade>
+    <Fade delay={400}>
       <header className='spacing-sm'>
         <div className='container'>
           <nav className='navbar navbar-expand-lg navbar-light'>
