@@ -7,6 +7,7 @@ import "./index.scss";
 
 const Breadcrumb = (props) => {
   const className = ["breadcrumb", props.className];
+
   return (
     <nav aria-label='breadcrumb'>
       <ol className={className.join(" ")}>

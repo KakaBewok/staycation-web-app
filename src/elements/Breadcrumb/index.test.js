@@ -11,11 +11,13 @@ const setup = () => {
     { pageTitle: "Home", pageHref: "" },
     { pageTitle: "House Details", pageHref: "" },
   ];
+
   const { container } = render(
     <Router>
       <Breadcrumb data={breadcrumbList} />
     </Router>
   );
+
   const breadcrumb = container.querySelector(`.breadcrumb`);
 
   return {
