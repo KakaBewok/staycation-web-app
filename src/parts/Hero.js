@@ -3,7 +3,7 @@ import HeroImage from "../assets/images/hero-image.jpg";
 import FrameHeroImage from "../assets/images/frame-hero-image.jpg";
 import IconCities from "../assets/images/icons/svg/ic_cities.svg";
 import IconTraveler from "../assets/images/icons/svg/ic_traveler.svg";
-import IconTreasure from "../assets/images/icons/svg/ic_treasure.svg";
+import IconTreasures from "../assets/images/icons/svg/ic_treasure.svg";
 import Button from "elements/Button";
 import numberFormat from "utils/formatNumber";
 import Fade from "react-reveal/Fade";
@@ -65,7 +65,7 @@ const Hero = (props) => {
                   <img
                     width='36'
                     height='36'
-                    src={IconTreasure}
+                    src={IconTreasures}
                     alt={`${data.treasures} Treasures`}
                   />
                   <h6 className='mt-3'>
