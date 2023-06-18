@@ -41,6 +41,7 @@ class BookingForm extends Component {
       const countDuration = new Date(endDate - startDate).getDate();
 
       this.setState({
+        ...this.state,
         data: {
           ...this.state.data,
           duration: countDuration,

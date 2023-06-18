@@ -87,6 +87,9 @@ import ItemDetails from "json/itemDetails";
 import FeaturedImage from "parts/FeaturedImage";
 import PageDetailDescription from "parts/PageDetailDescription";
 import BookingForm from "parts/BookingForm";
+import Categories from "parts/Categories";
+import Testimony from "parts/Testimony";
+import Fade from "react-reveal/Fade";
 
 class DetailsPage extends Component {
   componentDidMount() {
@@ -109,13 +112,19 @@ class DetailsPage extends Component {
         <section className='container'>
           <div className='row'>
             <div className='col-7 pr-5'>
-              <PageDetailDescription data={ItemDetails} />
+              <Fade bottom>
+                <PageDetailDescription data={ItemDetails} />
+              </Fade>
             </div>
             <div className='col-5'>
-              <BookingForm itemDetails={ItemDetails} />
+              <Fade bottom>
+                <BookingForm itemDetails={ItemDetails} />
+              </Fade>
             </div>
           </div>
         </section>
+        <Categories data={ItemDetails.categories} />
+        <Testimony data={ItemDetails.testimonial} />
       </>
     );
   }
