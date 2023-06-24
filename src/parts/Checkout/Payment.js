@@ -1,10 +1,11 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
 
-import { InputText, InputFile } from "elements/Form";
+import Text from "../../elements/Form/InputText";
+import File from "../../elements/Form/InputFile";
 
-import logoBca from "assets/images/logo-bca.jpg";
-import logoMandiri from "assets/images/logo-mandiri.jpg";
+import logoBca from "assets/images/icons/item_bank_bca.png";
+import logoMandiri from "assets/images/icons/item_bank_mandiri.png";
 
 const Payment = (props) => {
   const { data, ItemDetails, checkout } = props;
@@ -55,7 +56,7 @@ const Payment = (props) => {
           <div className='col-5 py-5' style={{ paddingLeft: 80 }}>
             <Fade delay={600}>
               <label htmlFor='proofPayment'>Upload Bukti Transfer</label>
-              <InputFile
+              <File
                 accept='image/*'
                 id='proofPayment'
                 name='proofPayment'
@@ -64,7 +65,7 @@ const Payment = (props) => {
               />
 
               <label htmlFor='bankName'>Asal Bank</label>
-              <InputText
+              <Text
                 id='bankName'
                 name='bankName'
                 type='text'
@@ -73,7 +74,7 @@ const Payment = (props) => {
               />
 
               <label htmlFor='bankHolder'>Nama Pengirim</label>
-              <InputText
+              <Text
                 id='bankHolder'
                 name='bankHolder'
                 type='text'

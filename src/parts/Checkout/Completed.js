@@ -1,6 +1,6 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
-import CompletedIllustration from "assets/images/completed.jpg";
+import CompletedIllustration from "assets/images/icons/CompletedIllustration.png";
 
 const Completed = () => {
   return (

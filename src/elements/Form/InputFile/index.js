@@ -76,3 +76,5 @@ File.propTypes = {
   outerClassName: propTypes.string,
   inputClassName: propTypes.string,
 };
+
+export default File;

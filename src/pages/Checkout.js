@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
-import { connect } from "react-redux";
-
+// import { connect } from "react-redux";
 import Header from "parts/Header";
 import Button from "elements/Button";
 import Stepper, {
@@ -10,12 +9,11 @@ import Stepper, {
   MainContent,
   Controller,
 } from "elements/Stepper";
-
 import BookingInformation from "parts/Checkout/BookingInformation";
 import Payment from "parts/Checkout/Payment";
 import Completed from "parts/Checkout/Completed";
-
-import { submitBooking } from "store/actions/checkout";
+// import { submitBooking } from "store/actions/checkout";
+import ItemDetails from "json/itemDetails";
 
 class Checkout extends Component {
   state = {
@@ -45,32 +43,37 @@ class Checkout extends Component {
   }
 
   _Submit = (nextStep) => {
-    const { data } = this.state;
-    const { checkout } = this.props;
+    alert("Success");
+    nextStep();
+    // const { data } = this.state;
+    // const { checkout } = this.props;
 
-    const payload = new FormData();
-    payload.append("firstName", data.firstName);
-    payload.append("lastName", data.lastName);
-    payload.append("email", data.email);
-    payload.append("phoneNumber", data.phone);
-    payload.append("idItem", checkout._id);
-    payload.append("duration", checkout.duration);
-    payload.append("bookingStartDate", checkout.date.startDate);
-    payload.append("bookingEndDate", checkout.date.endDate);
-    payload.append("accountHolder", data.bankHolder);
-    payload.append("bankFrom", data.bankName);
-    payload.append("image", data.proofPayment[0]);
-    // payload.append("bankId", checkout.bankId);
+    // const payload = new FormData();
+    // payload.append("firstName", data.firstName);
+    // payload.append("lastName", data.lastName);
+    // payload.append("email", data.email);
+    // payload.append("phoneNumber", data.phone);
+    // payload.append("idItem", checkout._id);
+    // payload.append("duration", checkout.duration);
+    // payload.append("bookingStartDate", checkout.date.startDate);
+    // payload.append("bookingEndDate", checkout.date.endDate);
+    // payload.append("accountHolder", data.bankHolder);
+    // payload.append("bankFrom", data.bankName);
+    // payload.append("image", data.proofPayment[0]);
+    // // payload.append("bankId", checkout.bankId);
 
-    this.props.submitBooking(payload).then(() => {
-      nextStep();
-    });
+    // this.props.submitBooking(payload).then(() => {
+    //   nextStep();
+    // });
   };
 
   render() {
     const { data } = this.state;
-    const { checkout, page } = this.props;
-    // console.log(page, data);
+    // const { checkout, page } = this.props;
+
+    const checkout = {
+      duration: 3,
+    };
 
     if (!checkout)
       return (
@@ -102,7 +105,7 @@ class Checkout extends Component {
           <BookingInformation
             data={data}
             checkout={checkout}
-            ItemDetails={page[checkout._id]}
+            ItemDetails={ItemDetails}
             onChange={this.onChange}
           />
         ),
@@ -113,7 +116,7 @@ class Checkout extends Component {
         content: (
           <Payment
             data={data}
-            ItemDetails={page[checkout._id]}
+            ItemDetails={ItemDetails}
             checkout={checkout}
             onChange={this.onChange}
           />
@@ -128,9 +131,10 @@ class Checkout extends Component {
 
     return (
       <>
+        {/* HEADER OF CHECKOUT PAGE */}
         <Header isCentered />
 
-        <Stepper steps={steps} initialStep='payment'>
+        <Stepper steps={steps} initialStep='bookingInformation'>
           {(prevStep, nextStep, CurrentStep, steps) => (
             <>
               {/* ICON STEPPER */}

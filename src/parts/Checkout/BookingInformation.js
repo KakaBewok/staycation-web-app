@@ -1,6 +1,6 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
-import { InputText } from "elements/Form";
+import Text from "../../elements/Form/InputText";
 
 const BookingInformation = (props) => {
   const { data, ItemDetails, checkout } = props;
@@ -20,15 +20,18 @@ const BookingInformation = (props) => {
                     alt={ItemDetails.title}
                   />
                 </figure>
-                <div className='row align-items-center'>
+                <div
+                  className='row align-items-center'
+                  style={{ display: "flex", alignItems: "center" }}>
                   <div className='col'>
                     <div className='meta-wrapper'>
-                      <h5>{ItemDetails.title}</h5>
+                      <h5>{ItemDetails.name}</h5>
                       <span className='text-gray-500'>
                         {ItemDetails.city}, {ItemDetails.country}
                       </span>
                     </div>
                   </div>
+
                   <div className='col-auto'>
                     <span>
                       ${+checkout.duration * ItemDetails.price} USD
@@ -45,7 +48,7 @@ const BookingInformation = (props) => {
           <div className='col-5 py-5' style={{ paddingLeft: 80 }}>
             <Fade delay={600}>
               <label htmlFor='firstName'>First Name</label>
-              <InputText
+              <Text
                 id='firstName'
                 name='firstName'
                 value={data.firstName}
@@ -53,7 +56,7 @@ const BookingInformation = (props) => {
               />
 
               <label htmlFor='lastName'>Last Name</label>
-              <InputText
+              <Text
                 id='lastName'
                 name='lastName'
                 value={data.lastName}
@@ -61,7 +64,7 @@ const BookingInformation = (props) => {
               />
 
               <label htmlFor='email'>Email Address</label>
-              <InputText
+              <Text
                 id='email'
                 name='email'
                 type='email'
@@ -70,7 +73,7 @@ const BookingInformation = (props) => {
               />
 
               <label htmlFor='phone'>Phone Number</label>
-              <InputText
+              <Text
                 id='phone'
                 name='phone'
                 type='tel'
