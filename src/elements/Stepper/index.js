@@ -3,12 +3,13 @@ import propTypes from "prop-types";
 
 const Stepper = (props) => {
   const { steps, initialStep } = props;
+
   const stepsKeys = Object.keys(steps);
 
   const [CurrentStep, setCurrentStep] = useState(
     stepsKeys.indexOf(initialStep) > -1 ? initialStep : stepsKeys[0]
   );
-  const totalStep = stepsKeys.length;
+  const totalStep = stepsKeys.length; //3
   const indexStep = stepsKeys.indexOf(CurrentStep);
 
   function prevStep() {
