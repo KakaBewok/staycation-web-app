@@ -54,13 +54,13 @@ const bookingSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    accountHolder: {
+    accountHolders: {
       type: String,
       required: true,
     },
     status: {
       type: String,
-      default: "Proses",
+      default: "Process",
     },
   },
 });
