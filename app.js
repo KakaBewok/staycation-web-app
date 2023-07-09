@@ -3,6 +3,14 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+//custom import
+const mongoose = require("mongoose");
+const methodOverride = require("method-override");
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/staycation")
+  .then(() => console.log("MongoDB Connected ..."))
+  .catch((err) => console.log(err));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -15,6 +23,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(methodOverride("_method"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
