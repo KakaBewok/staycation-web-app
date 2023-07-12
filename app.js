@@ -5,10 +5,11 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 //custom import
 const mongoose = require("mongoose");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override"); //for override http put and delete
 const session = require("express-session");
 const flash = require("connect-flash");
 
+//connect to db
 mongoose
   .connect("mongodb://127.0.0.1:27017/staycation")
   .then(() => console.log("MongoDB Connected ..."))
@@ -16,7 +17,7 @@ mongoose
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-//route admin
+//route admin page (dashboard)
 const adminRouter = require("./routes/admin");
 
 var app = express();
