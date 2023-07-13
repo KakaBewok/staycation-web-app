@@ -69,4 +69,24 @@
   </div>
 </div>
 
-<%- include('add_modal.ejs') %> <%- include('../../partials/js.ejs') %>
+<%- include('add_modal.ejs') %> <%- include('edit_modal.ejs') %> <%-
+include('../../partials/js.ejs') %>
+
+<!-- Show modal edit bank -->
+<script>
+  $("#dataTable").on("click", ".button-edit-bank", function () {
+    // this = element with class .button-edit-bank
+    let id = $(this).data("id");
+    let bank = $(this).data("bank");
+    let account = $(this).data("account");
+    let accountHolders = $(this).data("holders");
+
+    $("#edit-bank-modal").modal("show");
+
+    //show the data to be edited
+    $(".form-edit-bank-id").val(id);
+    $(".form-edit-bank-name").val(bank);
+    $(".form-edit-bank-account").val(account);
+    $(".form-edit-bank-account-holders").val(accountHolders);
+  });
+</script>

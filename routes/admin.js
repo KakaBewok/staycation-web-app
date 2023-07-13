@@ -13,6 +13,7 @@ router.delete("/category/:id", adminController.deleteCategory);
 //bank
 router.get("/bank", adminController.viewBank);
 router.post("/bank", uploadSingle, adminController.addBank);
+router.put("/bank", uploadSingle, adminController.editBank);
 
 router.get("/item", adminController.viewItem);
 router.get("/booking", adminController.viewBooking);

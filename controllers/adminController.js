@@ -1,5 +1,7 @@
 const Category = require("../models/Category");
 const Bank = require("../models/Bank");
+const fs = require("fs-extra");
+const path = require("path");
 
 module.exports = {
   viewDashboard: (req, res) => {
@@ -118,6 +120,35 @@ module.exports = {
       req.flash("alertMessage", "Success Add Bank");
       req.flash("alertStatus", "success");
       res.redirect("/admin/bank");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/bank");
+    }
+  },
+  editBank: async (req, res) => {
+    try {
+      const { id, accountHolders, bank, account } = req.body;
+      const bankEdited = await Bank.findOne({ _id: id });
+      if (req.file == undefined) {
+        bankEdited.accountHolders = accountHolders;
+        bankEdited.bank = bank;
+        bankEdited.account = account;
+        await bankEdited.save();
+        req.flash("alertMessage", "Success Update Bank");
+        req.flash("alertStatus", "success");
+        res.redirect("/admin/bank");
+      } else {
+        await fs.unlink(path.join(`public/${bankEdited.imageUrl}`));
+        bankEdited.accountHolders = accountHolders;
+        bankEdited.bank = bank;
+        bankEdited.account = account;
+        bankEdited.imageUrl = `images/${req.file.filename}`;
+        await bankEdited.save();
+        req.flash("alertMessage", "Success Update Bank");
+        req.flash("alertStatus", "success");
+        res.redirect("/admin/bank");
+      }
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
