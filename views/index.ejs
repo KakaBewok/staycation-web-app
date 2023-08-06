@@ -7,8 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Staycation web app" />
-    <meta name="author" content="@_KkBwk" />
+    <meta name="description" content="Login page Staycation Web App" />
+    <meta name="author" content="Noprizal @_KkBwk" />
 
     <title><%= title %></title>
 
@@ -32,6 +32,7 @@
       <!-- Outer Row -->
       <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-12 col-md-9 mt-5">
+          <%- include('./partials/message.ejs') %>
           <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
               <!-- Nested Row within Card Body -->
@@ -48,6 +49,7 @@
                           class="form-control form-control-user"
                           name="username"
                           placeholder="Username"
+                          required
                         />
                       </div>
                       <div class="form-group">
@@ -57,6 +59,7 @@
                           id="exampleInputPassword"
                           name="password"
                           placeholder="Password"
+                          required
                         />
                       </div>
 

@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const adminController = require("../controllers/adminController");
 const { uploadSingle, uploadMultiple } = require("../middleware/multer");
-
-router.get("/dashboard", adminController.viewDashboard);
+const auth = require("../middleware/auth");
 
 // sign in endpoint
 router.get("/signin", adminController.viewSignin);
 router.post("/signin", adminController.actionSignin);
-// router.use(auth);
-// router.get("/logout", adminController.actionLogout);
-// router.get("/dashboard", adminController.viewDashboard);
+//If you wanna go to the dashboard and logout, you have to go through the auth middleware
+router.use(auth);
+router.get("/logout", adminController.actionLogout);
+router.get("/dashboard", adminController.viewDashboard);
 
 // category endpoint
 router.get("/category", adminController.viewCategory);

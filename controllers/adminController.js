@@ -5,15 +5,29 @@ const Image = require("../models/Image");
 const Feature = require("../models/Feature");
 const Activity = require("../models/Activity");
 const Users = require("../models/Users");
+const Member = require("../models/Member");
+const Booking = require("../models/Booking");
 const fs = require("fs-extra");
 const path = require("path");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
-  viewDashboard: (req, res) => {
-    res.render("admin/dashboard/view_dashboard", {
-      title: "Staycation | Dashboard",
-    });
+  //Auth page
+  viewDashboard: async (req, res) => {
+    try {
+      const member = await Member.find();
+      const booking = await Booking.find();
+      const item = await Item.find();
+      res.render("admin/dashboard/view_dashboard", {
+        title: "Staycation | Dashboard",
+        user: req.session.user,
+        member,
+        booking,
+        item,
+      });
+    } catch (error) {
+      res.redirect("/admin/dashboard");
+    }
   },
 
   //Sign in
@@ -22,6 +36,7 @@ module.exports = {
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
       const alert = { message: alertMessage, status: alertStatus };
+
       if (req.session.user == null || req.session.user == undefined) {
         res.render("index", {
           alert,
@@ -38,28 +53,32 @@ module.exports = {
     try {
       const { username, password } = req.body;
       const user = await Users.findOne({ username: username });
+
       if (!user) {
-        req.flash("alertMessage", "User not found!!");
+        req.flash("alertMessage", "User not found!");
         req.flash("alertStatus", "danger");
-        res.redirect("/admin/signin");
+        return res.redirect("/admin/signin");
       }
       const isPasswordMatch = await bcrypt.compare(password, user.password);
       if (!isPasswordMatch) {
         req.flash("alertMessage", "Password don't match!");
         req.flash("alertStatus", "danger");
-        res.redirect("/admin/signin");
+        return res.redirect("/admin/signin");
       }
 
       req.session.user = {
-        //from db
         id: user.id,
         username: user.username,
       };
 
-      res.redirect("/admin/dashboard");
+      return res.redirect("/admin/dashboard");
     } catch (error) {
-      res.redirect("/admin/signin");
+      return res.redirect("/admin/signin");
     }
+  },
+  actionLogout: (req, res) => {
+    req.session.destroy();
+    res.redirect("/admin/signin");
   },
 
   //Category
@@ -79,6 +98,7 @@ module.exports = {
         title: "Staycation | Category",
         category,
         alert,
+        user: req.session.user,
       });
     } catch (error) {
       res.redirect("/admin/category");
@@ -603,6 +623,7 @@ module.exports = {
   viewBooking: (req, res) => {
     res.render("admin/booking/view_booking", {
       title: "Staycation | Booking",
+      user: req.session.user,
     });
   },
 };
