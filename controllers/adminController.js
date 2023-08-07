@@ -620,10 +620,21 @@ module.exports = {
   },
 
   //booking
-  viewBooking: (req, res) => {
-    res.render("admin/booking/view_booking", {
-      title: "Staycation | Booking",
-      user: req.session.user,
-    });
+  viewBooking: async (req, res) => {
+    try {
+      const booking = await Booking.find()
+        .populate("memberId")
+        .populate("bankId");
+
+      console.log(booking);
+
+      res.render("admin/booking/view_booking", {
+        title: "Staycation | Booking",
+        user: req.session.user,
+        booking,
+      });
+    } catch (error) {
+      res.redirect("/admin/booking");
+    }
   },
 };
