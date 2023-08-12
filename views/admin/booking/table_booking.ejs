@@ -27,8 +27,7 @@
             <td>#<%= booking[i].invoice %></td>
             <td>
               <%= booking[i].bookingStartDate.toLocaleString().split(',')[0] %>
-              s/d <%= booking[i].bookingEndDate.toLocaleString().split(',')[0]
-              %>
+              - <%= booking[i].bookingEndDate.toLocaleString().split(',')[0] %>
             </td>
             <td><%= booking[i].itemId.title %></td>
             <td>
