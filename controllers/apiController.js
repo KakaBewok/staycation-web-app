@@ -115,14 +115,13 @@ module.exports = {
     const {
       idItem,
       duration,
-      // price,
       bookingStartDate,
       bookingEndDate,
       firstName,
       lastName,
       email,
       phoneNumber,
-      accountHolder,
+      accountHolders,
       bankFrom,
     } = req.body;
 
@@ -135,14 +134,13 @@ module.exports = {
     if (
       idItem === undefined ||
       duration === undefined ||
-      // price === undefined ||
       bookingStartDate === undefined ||
       bookingEndDate === undefined ||
       firstName === undefined ||
       lastName === undefined ||
       email === undefined ||
       phoneNumber === undefined ||
-      accountHolder === undefined ||
+      accountHolders === undefined ||
       bankFrom === undefined
     ) {
       res.status(404).json({ message: "Complete all forms" });
@@ -175,7 +173,7 @@ module.exports = {
       bookingStartDate,
       bookingEndDate,
       total: (total += tax),
-      itemId: {
+      idItem: {
         _id: item.id,
         title: item.title,
         price: item.price,
@@ -186,7 +184,7 @@ module.exports = {
       payments: {
         proofPayment: `images/${req.file.filename}`,
         bankFrom: bankFrom,
-        accountHolder: accountHolder,
+        accountHolders: accountHolders,
       },
     };
 
