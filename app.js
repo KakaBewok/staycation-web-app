@@ -11,9 +11,16 @@ const flash = require("connect-flash");
 
 //connect to db
 mongoose
-  .connect("mongodb://127.0.0.1:27017/staycation")
+  .connect(
+    "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
+
+// mongoose
+//   .connect("mongodb://localhost:27017/staycation")
+//   .then(() => console.log("MongoDB Connected ..."))
+//   .catch((err) => console.log(err));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -35,7 +42,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 160000 },
+    cookie: { maxAge: 400000 },
   })
 );
 app.use(flash());

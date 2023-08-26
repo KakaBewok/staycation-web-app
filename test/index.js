@@ -69,14 +69,14 @@ describe("API ENDPOINT TESTING", () => {
       image,
       idItem: "5e96cbe292b97300fc902223",
       duration: 2,
-      bookingStartDate: "9-4-2020",
-      bookingEndDate: "11-4-2020",
-      firstName: "itce",
-      lastName: "diasari",
-      email: "itce@gmail.com",
+      bookingStartDate: "26-08-2023",
+      bookingEndDate: "28-08-2023",
+      firstName: "Zayn",
+      lastName: "Malik",
+      email: "zayn.malik@gmail.com",
       phoneNumber: "08150008989",
-      accountHolders: "oci",
-      bankFrom: "BNI",
+      accountHolders: "Zayn M.",
+      bankFrom: "BCA",
     };
     chai
       .request(app)
