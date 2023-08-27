@@ -70,11 +70,8 @@ module.exports = {
         id: user.id,
         username: user.username,
       };
-      const credentialUser = {
-        id: user.id,
-        username: user.username,
-      };
-      localStorage.setItem("unknown", JSON.stringify(credentialUser));
+      localStorage.setItem("unknown", user.id);
+      localStorage.setItem("unknown2", user.username);
 
       return res.redirect("/admin/dashboard");
     } catch (error) {
@@ -84,6 +81,7 @@ module.exports = {
   actionLogout: (req, res) => {
     req.session.destroy();
     localStorage.removeItem("unknown");
+    localStorage.removeItem("unknown2");
     res.redirect("/admin/signin");
   },
 

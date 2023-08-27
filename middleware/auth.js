@@ -3,7 +3,7 @@ const isLogin = (req, res, next) => {
     req.session.user == null ||
     req.session.user == undefined ||
     localStorage.getItem("unknown") == null ||
-    localStorage.getItem("unknown") == undefined
+    localStorage.getItem("unknown2") == null
   ) {
     req.flash("alertMessage", "Session has expired, please login again!");
     req.flash("alertStatus", "danger");
