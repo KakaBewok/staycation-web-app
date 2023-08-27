@@ -1,7 +1,7 @@
 const isLogin = (req, res, next) => {
   if (
-    // req.session.user == null ||
-    // req.session.user == undefined ||
+    req.session.user == null ||
+    req.session.user == undefined ||
     localStorage.getItem("unknown") == null ||
     localStorage.getItem("unknown2") == null
   ) {
