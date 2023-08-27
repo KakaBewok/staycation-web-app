@@ -70,8 +70,8 @@ module.exports = {
         id: user.id,
         username: user.username,
       };
-      localStorage.setItem("unknown", user.id);
-      localStorage.setItem("unknown2", user.username);
+      // localStorage.setItem("unknown", user.id);
+      // localStorage.setItem("unknown2", user.username);
 
       return res.redirect("/admin/dashboard");
     } catch (error) {
