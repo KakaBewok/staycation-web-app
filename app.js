@@ -9,7 +9,7 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 
-//connect to db
+//connect to mongoDb atlas
 mongoose
   .connect(
     "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority"
@@ -17,6 +17,7 @@ mongoose
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
 
+//connect to mongoDb compass
 // mongoose
 //   .connect("mongodb://localhost:27017/staycation")
 //   .then(() => console.log("MongoDB Connected ..."))
