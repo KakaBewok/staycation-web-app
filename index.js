@@ -37,15 +37,17 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 //custom
+const oneDay = 24 * 60 * 60 * 1000;
 app.use(methodOverride("_method"));
 app.use(
   session({
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 400000 },
+    cookie: { maxAge: oneDay },
   })
 );
+
 app.use(flash());
 
 app.use(logger("dev"));
