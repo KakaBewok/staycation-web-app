@@ -8,12 +8,11 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override"); //for override http put and delete
 const session = require("express-session");
 const flash = require("connect-flash");
+require("dotenv").config();
 
 //connect to mongoDb atlas
 mongoose
-  .connect(
-    "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.URI_DATABASE)
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
 
