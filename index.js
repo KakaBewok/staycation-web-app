@@ -9,13 +9,13 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
+
+////////////////////
 const RedisStore = require("connect-redis").default;
 const redis = require("redis");
 const client = redis.createClient();
-
 // Initialize client.
 client.connect().catch(console.error);
-
 // Initialize store.
 let redisStore = new RedisStore({
   client: client,
@@ -58,8 +58,8 @@ app.use(methodOverride("_method"));
 app.use(
   session({
     store: redisStore,
-    resave: false, // required: force lightweight session keep alive (touch)
-    saveUninitialized: false, // recommended: only save session when data exists
+    resave: false,
+    saveUninitialized: false,
     secret: "keyboard cat",
   })
 );
