@@ -80,8 +80,8 @@ module.exports = {
   },
   actionLogout: (req, res) => {
     req.session.destroy();
-    localStorage.removeItem("unknown");
-    localStorage.removeItem("unknown2");
+    // localStorage.removeItem("unknown");
+    // localStorage.removeItem("unknown2");
     res.redirect("/admin/signin");
   },
 
