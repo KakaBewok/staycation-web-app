@@ -9,6 +9,18 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
+import RedisStore from "connect-redis";
+import { createClient } from "redis";
+
+// Initialize client.
+let redisClient = createClient();
+redisClient.connect().catch(console.error);
+
+// Initialize store.
+let redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "staycation:",
+});
 
 //connect to mongoDb atlas
 mongoose
@@ -41,14 +53,26 @@ app.set("view engine", "ejs");
 //custom
 const oneDay = 24 * 60 * 60 * 1000;
 app.use(methodOverride("_method"));
+
+// Initialize sesssion storage.
 app.use(
   session({
+    store: redisStore,
+    resave: false, // required: force lightweight session keep alive (touch)
+    saveUninitialized: false, // recommended: only save session when data exists
     secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    // cookie: { maxAge: 600000 },
   })
 );
+
+//OLD
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 600000 },
+//   })
+// );
 
 app.use(flash());
 
