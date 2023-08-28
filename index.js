@@ -12,7 +12,10 @@ require("dotenv").config();
 
 //connect to mongoDb atlas
 mongoose
-  .connect(process.env.URI_DATABASE)
+  // .connect(process.env.URI_DATABASE)
+  .connect(
+    "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
 
