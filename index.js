@@ -9,16 +9,16 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
-import RedisStore from "connect-redis";
-import { createClient } from "redis";
+const RedisStore = require("connect-redis").default;
+const redis = require("redis");
+const client = redis.createClient();
 
 // Initialize client.
-let redisClient = createClient();
-redisClient.connect().catch(console.error);
+client.connect().catch(console.error);
 
 // Initialize store.
 let redisStore = new RedisStore({
-  client: redisClient,
+  client: client,
   prefix: "staycation:",
 });
 
