@@ -10,32 +10,19 @@ const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
 
-////////////////////
-const RedisStore = require("connect-redis").default;
-const redis = require("redis");
-const client = redis.createClient();
-// Initialize client.
-client.connect().catch(console.error);
-// Initialize store.
-let redisStore = new RedisStore({
-  client: client,
-  prefix: "staycation:",
-});
+//connect to mongoDb compass
+// mongoose
+//   .connect("mongodb://127.0.0.1:27017/staycation")
+//   .then(() => console.log("MongoDB Connected ..."))
+//   .catch((err) => console.log(err));
 
-//connect to mongoDb atlas
+//connect to mongo atlas
 mongoose
-  // .connect(process.env.URI_DATABASE)
   .connect(
     "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority"
   )
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
-
-//connect to mongoDb compass
-// mongoose
-//   .connect("mongodb://localhost:27017/staycation")
-//   .then(() => console.log("MongoDB Connected ..."))
-//   .catch((err) => console.log(err));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -55,24 +42,24 @@ const oneDay = 24 * 60 * 60 * 1000;
 app.use(methodOverride("_method"));
 
 // Initialize sesssion storage.
-app.use(
-  session({
-    store: redisStore,
-    resave: false,
-    saveUninitialized: false,
-    secret: "keyboard cat",
-  })
-);
-
-//OLD
 // app.use(
 //   session({
+//     store: redisStore,
+//     resave: false, // required: force lightweight session keep alive (touch)
+//     saveUninitialized: false, // recommended: only save session when data exists
 //     secret: "keyboard cat",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 600000 },
 //   })
 // );
+
+//OLD
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 },
+  })
+);
 
 app.use(flash());
 
