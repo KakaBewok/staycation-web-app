@@ -9,6 +9,7 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
+let MongoDBStore = require("connect-mongodb-session")(session);
 
 //connect to mongoDb compass
 // mongoose
@@ -23,6 +24,16 @@ mongoose
   )
   .then(() => console.log("MongoDB Connected ..."))
   .catch((err) => console.log(err));
+
+//session
+let store = new MongoDBStore({
+  uri: "mongodb+srv://staycation:staycationrahasia123@cluster0.cgahxjp.mongodb.net/?retryWrites=true&w=majority",
+  collection: "sessionId",
+});
+// Catch errors
+store.on("error", function (error) {
+  console.log(error);
+});
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -42,24 +53,27 @@ const oneDay = 24 * 60 * 60 * 1000;
 app.use(methodOverride("_method"));
 
 // Initialize sesssion storage.
-// app.use(
-//   session({
-//     store: redisStore,
-//     resave: false, // required: force lightweight session keep alive (touch)
-//     saveUninitialized: false, // recommended: only save session when data exists
-//     secret: "keyboard cat",
-//   })
-// );
-
-//OLD
 app.use(
   session({
-    secret: "keyboard cat",
-    resave: false,
+    secret: "This is a secret",
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    },
+    store: store,
+    resave: true,
     saveUninitialized: true,
-    // cookie: { maxAge: 600000 },
   })
 );
+
+//OLD
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: false,
+//     saveUninitialized: true,
+//     // cookie: { maxAge: 600000 },
+//   })
+// );
 
 app.use(flash());
 
