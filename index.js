@@ -46,7 +46,8 @@ const apiRouter = require("./routes/api");
 
 var app = express();
 
-app.use("/.netlify/functions/server", router);
+//serverless netlify
+app.use("/.netlify/functions/", router);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
