@@ -9,6 +9,8 @@ const methodOverride = require("method-override"); //for override http put and d
 const session = require("express-session");
 const flash = require("connect-flash");
 require("dotenv").config();
+const serverless = require("serverless-http");
+var router = require("express").Router();
 let MongoDBStore = require("connect-mongodb-session")(session);
 
 //connect to mongoDb compass
@@ -43,6 +45,8 @@ const adminRouter = require("./routes/admin");
 const apiRouter = require("./routes/api");
 
 var app = express();
+
+app.use("/.netlify/functions/server", router);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -102,3 +106,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+module.exports.handler = serverless(app);
