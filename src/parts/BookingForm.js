@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import Button from "elements/Button";
 import InputDate from "../elements/Form/InputDate/index";
 import InputNumber from "../elements/Form/InputNumber/index";
+import { useSelector, useDispatch } from "react-redux";
+import { checkoutBookingAction } from "store/reducer/checkout/checkoutActions";
 
 // class BookingForm extends Component {
 //   constructor(props) {
@@ -133,6 +135,10 @@ import InputNumber from "../elements/Form/InputNumber/index";
 // export default withRouter(BookingForm);
 
 const BookingForm = (props) => {
+  const checkout = useSelector((state) => state.checkout);
+  const dispatch = useDispatch();
+  const { itemDetails } = props;
+
   const initialData = {
     duration: 1,
     date: {
@@ -187,9 +193,13 @@ const BookingForm = (props) => {
   }, [data]);
 
   const startBooking = () => {
+    const payload = {
+      _id: itemDetails._id,
+      ...data,
+    };
+    dispatch(checkoutBookingAction(payload));
     props.history.push("/checkout");
   };
-  const { itemDetails } = props;
 
   return (
     <div className="card bordered" style={{ padding: "60px 80px" }}>
