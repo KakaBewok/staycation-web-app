@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
-// import { connect } from "react-redux";
 import Header from "parts/Header";
 import Button from "elements/Button";
 import Stepper, {
@@ -12,225 +12,195 @@ import Stepper, {
 import BookingInformation from "parts/Checkout/BookingInformation";
 import Payment from "parts/Checkout/Payment";
 import Completed from "parts/Checkout/Completed";
-// import { submitBooking } from "store/actions/checkout";
 import ItemDetails from "json/itemDetails";
 
-class Checkout extends Component {
-  state = {
-    data: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      proofPayment: "",
-      bankName: "",
-      bankHolder: "",
-    },
-  };
+const Checkout = (props) => {
+  const checkout = useSelector((state) => state.checkout);
 
-  onChange = (event) => {
-    this.setState({
-      data: {
-        ...this.state.data,
-        [event.target.name]: event.target.value,
-      },
+  const initialData = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    proofPayment: "",
+    bankName: "",
+    bankHolder: "",
+  };
+  const [data, setData] = useState(initialData);
+
+  const onChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
     });
   };
 
-  componentDidMount() {
+  useEffect(() => {
     window.scroll(0, 0);
     document.title = "Staycation | Checkout";
-  }
+    return () => (document.title = "Staycation");
+  }, []);
 
-  _Submit = (nextStep) => {
+  const _Submit = (nextStep) => {
     alert("Success");
     nextStep();
-    // const { data } = this.state;
-    // const { checkout } = this.props;
-
-    // const payload = new FormData();
-    // payload.append("firstName", data.firstName);
-    // payload.append("lastName", data.lastName);
-    // payload.append("email", data.email);
-    // payload.append("phoneNumber", data.phone);
-    // payload.append("idItem", checkout._id);
-    // payload.append("duration", checkout.duration);
-    // payload.append("bookingStartDate", checkout.date.startDate);
-    // payload.append("bookingEndDate", checkout.date.endDate);
-    // payload.append("accountHolder", data.bankHolder);
-    // payload.append("bankFrom", data.bankName);
-    // payload.append("image", data.proofPayment[0]);
-    // // payload.append("bankId", checkout.bankId);
-
-    // this.props.submitBooking(payload).then(() => {
-    //   nextStep();
-    // });
   };
 
-  render() {
-    const { data } = this.state;
-    // const { checkout, page } = this.props;
-
-    const checkout = {
-      duration: 3,
-    };
-
-    if (!checkout)
-      return (
-        <div className='container'>
-          <div
-            className='row align-items-center justify-content-center text-center'
-            style={{ height: "100vh" }}>
-            <div className='col-3'>
-              Pilih kamar dulu
-              <div>
-                <Button
-                  className='btn mt-5'
-                  type='button'
-                  onClick={() => this.props.history.goBack()}
-                  isLight>
-                  Back
-                </Button>
-              </div>
+  if (!checkout)
+    return (
+      <div className="container">
+        <div
+          className="row align-items-center justify-content-center text-center"
+          style={{ height: "100vh" }}
+        >
+          <div className="col-3">
+            Pilih kamar dulu
+            <div>
+              <Button
+                className="btn mt-5"
+                type="button"
+                onClick={() => props.history.goBack()}
+                isLight
+              >
+                Back
+              </Button>
             </div>
           </div>
         </div>
-      );
-
-    const steps = {
-      bookingInformation: {
-        title: "Booking Information",
-        description: "Please fill up the blank fields below",
-        content: (
-          <BookingInformation
-            data={data}
-            checkout={checkout}
-            ItemDetails={ItemDetails}
-            onChange={this.onChange}
-          />
-        ),
-      },
-      payment: {
-        title: "Payment",
-        description: "Kindly follow the instructions below",
-        content: (
-          <Payment
-            data={data}
-            ItemDetails={ItemDetails}
-            checkout={checkout}
-            onChange={this.onChange}
-          />
-        ),
-      },
-      completed: {
-        title: "Yay! Completed",
-        description: null,
-        content: <Completed />,
-      },
-    };
-
-    return (
-      <>
-        {/* HEADER OF CHECKOUT PAGE */}
-        <Header isCentered />
-
-        <Stepper steps={steps} initialStep='bookingInformation'>
-          {(prevStep, nextStep, CurrentStep, steps) => (
-            <>
-              {/* ICON STEPPER */}
-              <Numbering
-                data={steps}
-                current={CurrentStep}
-                style={{ marginBottom: 50 }}
-              />
-              {/* TEXT INFO */}
-              <Meta data={steps} current={CurrentStep} />
-              {/* MENU (BOOKING, PAYMENT, COMPLETED) */}
-              <MainContent data={steps} current={CurrentStep} />
-
-              {CurrentStep === "bookingInformation" && (
-                <Controller>
-                  {data.firstName !== "" &&
-                    data.lastName !== "" &&
-                    data.email !== "" &&
-                    data.phone !== "" && (
-                      <Fade>
-                        <Button
-                          className='btn mb-3'
-                          type='button'
-                          isBlock
-                          isPrimary
-                          hasShadow
-                          onClick={nextStep}>
-                          Continue to Book
-                        </Button>
-                      </Fade>
-                    )}
-                  <Button
-                    className='btn'
-                    type='link'
-                    isBlock
-                    isLight
-                    href={`/properties/${checkout._id}`}>
-                    Cancel
-                  </Button>
-                </Controller>
-              )}
-
-              {CurrentStep === "payment" && (
-                <Controller>
-                  {data.proofPayment !== "" &&
-                    data.bankName !== "" &&
-                    data.bankHolder !== "" && (
-                      <Fade>
-                        <Button
-                          className='btn mb-3'
-                          type='button'
-                          isBlock
-                          isPrimary
-                          hasShadow
-                          onClick={() => this._Submit(nextStep)}>
-                          Continue to Book
-                        </Button>
-                      </Fade>
-                    )}
-                  <Button
-                    className='btn'
-                    type='button'
-                    isBlock
-                    isLight
-                    onClick={prevStep}>
-                    Cancel
-                  </Button>
-                </Controller>
-              )}
-
-              {CurrentStep === "completed" && (
-                <Controller>
-                  <Button
-                    className='btn'
-                    type='link'
-                    isBlock
-                    isPrimary
-                    hasShadow
-                    href=''>
-                    Back to Home
-                  </Button>
-                </Controller>
-              )}
-            </>
-          )}
-        </Stepper>
-      </>
+      </div>
     );
-  }
-}
 
-// const mapStateToProps = (state) => ({
-//   checkout: state.checkout,
-//   page: state.page,
-// });
+  const steps = {
+    bookingInformation: {
+      title: "Booking Information",
+      description: "Please fill up the blank fields below",
+      content: (
+        <BookingInformation
+          data={data}
+          checkout={checkout}
+          ItemDetails={ItemDetails}
+          onChange={onChange}
+        />
+      ),
+    },
+    payment: {
+      title: "Payment",
+      description: "Kindly follow the instructions below",
+      content: (
+        <Payment
+          data={data}
+          ItemDetails={ItemDetails}
+          checkout={checkout}
+          onChange={onChange}
+        />
+      ),
+    },
+    completed: {
+      title: "Yay! Completed",
+      description: null,
+      content: <Completed />,
+    },
+  };
 
-// export default connect(mapStateToProps, { submitBooking })(Checkout);
+  return (
+    <>
+      {/* HEADER OF CHECKOUT PAGE */}
+      <Header isCentered />
+
+      <Stepper steps={steps} initialStep="bookingInformation">
+        {(prevStep, nextStep, CurrentStep, steps) => (
+          <>
+            {/* ICON STEPPER */}
+            <Numbering
+              data={steps}
+              current={CurrentStep}
+              style={{ marginBottom: 50 }}
+            />
+            {/* TEXT INFO */}
+            <Meta data={steps} current={CurrentStep} />
+            {/* MENU (BOOKING, PAYMENT, COMPLETED) */}
+            <MainContent data={steps} current={CurrentStep} />
+
+            {CurrentStep === "bookingInformation" && (
+              <Controller>
+                {data.firstName !== "" &&
+                  data.lastName !== "" &&
+                  data.email !== "" &&
+                  data.phone !== "" && (
+                    <Fade>
+                      <Button
+                        className="btn mb-3"
+                        type="button"
+                        isBlock
+                        isPrimary
+                        hasShadow
+                        onClick={nextStep}
+                      >
+                        Continue to Book
+                      </Button>
+                    </Fade>
+                  )}
+                <Button
+                  className="btn"
+                  type="link"
+                  isBlock
+                  isLight
+                  href={`/properties/${checkout._id}`}
+                >
+                  Cancel
+                </Button>
+              </Controller>
+            )}
+
+            {CurrentStep === "payment" && (
+              <Controller>
+                {data.proofPayment !== "" &&
+                  data.bankName !== "" &&
+                  data.bankHolder !== "" && (
+                    <Fade>
+                      <Button
+                        className="btn mb-3"
+                        type="button"
+                        isBlock
+                        isPrimary
+                        hasShadow
+                        onClick={() => _Submit(nextStep)}
+                      >
+                        Continue to Book
+                      </Button>
+                    </Fade>
+                  )}
+                <Button
+                  className="btn"
+                  type="button"
+                  isBlock
+                  isLight
+                  onClick={prevStep}
+                >
+                  Cancel
+                </Button>
+              </Controller>
+            )}
+
+            {CurrentStep === "completed" && (
+              <Controller>
+                <Button
+                  className="btn"
+                  type="link"
+                  isBlock
+                  isPrimary
+                  hasShadow
+                  href=""
+                >
+                  Back to Home
+                </Button>
+              </Controller>
+            )}
+          </>
+        )}
+      </Stepper>
+    </>
+  );
+};
 
 export default Checkout;
