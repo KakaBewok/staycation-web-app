@@ -84,6 +84,8 @@ module.exports = {
   },
 
   detailPage: async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     try {
       const { id } = req.params;
       const item = await Item.findOne({ _id: id })
@@ -115,6 +117,8 @@ module.exports = {
   },
 
   bookingPage: async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     const {
       idItem,
       duration,
