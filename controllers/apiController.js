@@ -8,6 +8,9 @@ const Member = require("../models/Member");
 
 module.exports = {
   landingPage: async (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+
     try {
       const mostPicked = await Item.find()
         .select("_id title country city price unit imageId")
