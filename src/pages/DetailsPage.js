@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Header from "parts/Header";
 import PageDetailTitle from "parts/PageDetailTitle";
 import ItemDetails from "json/itemDetails";
@@ -9,12 +8,8 @@ import BookingForm from "parts/BookingForm";
 import Categories from "parts/Categories";
 import Testimony from "parts/Testimony";
 import Fade from "react-reveal/Fade";
-import { checkoutBooking } from "store/reducer/checkout/checkoutSlice";
 
 const DetailsPage = (props) => {
-  const checkout = useSelector((state) => state.checkout);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     window.title = "Staycation | Details Page";
     window.scrollTo(0, 0);
