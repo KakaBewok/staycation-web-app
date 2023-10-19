@@ -1,5 +1,6 @@
-import { landingPage } from "./landingPagetSlice";
+import { landingPage } from "./landingPageSlice";
 import axios from "axios";
+import "dotenv/config";
 
 export const fetchLandingPageAction = (url, page) => async (dispatch) => {
   return axios.get(url).then((response) => {

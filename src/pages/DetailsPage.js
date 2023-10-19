@@ -8,15 +8,34 @@ import BookingForm from "parts/BookingForm";
 import Categories from "parts/Categories";
 import Testimony from "parts/Testimony";
 import Fade from "react-reveal/Fade";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDetailPageAction } from "store/reducer/detailPage/detailPageActions";
 
 const DetailsPage = (props) => {
+  const detailPage = useSelector((state) => state.detailPage);
+  const dispatch = useDispatch();
+
+  console.log(props);
+  console.log(props.match.params.id);
+  console.log(detailPage.detailPage);
+
   useEffect(() => {
     window.title = "Staycation | Details Page";
     window.scrollTo(0, 0);
 
-    return () => {
-      window.title = "Staycation";
-    };
+    // if (!detailPage.page[props.match.params.id]) {
+    dispatch(
+      fetchDetailPageAction(
+        `${process.env.REACT_APP_HOST}/api/v1/member/detail-page/` +
+          props.match.params.id.toString(),
+        "detailPage"
+      )
+    );
+    // }
+
+    // return () => {
+    //   window.title = "Staycation";
+    // };
   }, []);
 
   const breadcrumb = [

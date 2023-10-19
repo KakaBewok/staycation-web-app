@@ -8,7 +8,6 @@ import Testimony from "parts/Testimony";
 import Footer from "parts/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLandingPageAction } from "store/reducer/landingPage/landingPageActions";
-import "dotenv/config";
 
 const LandingPage = (props) => {
   const landingPage = useSelector((state) => state.landingPage);
